@@ -63,4 +63,11 @@ $  python3 manage.py test
 
 ````
 
+8. To run the project in Dockerfile in dev mode, create .env.dev  and .env.dev.db files 
+    looking at the sample sample.env and sample.db.env:
+````
+
+$
+
+````
 

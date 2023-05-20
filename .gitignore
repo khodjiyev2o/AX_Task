@@ -9,6 +9,7 @@ __pycache__/
 .env.prod
 .env.dev
 .env.prod.db
+.env.dev.db
 # Distribution / packaging
 .Python
 build/

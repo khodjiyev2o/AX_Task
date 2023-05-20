@@ -1,8 +1,6 @@
 from .base import *
 
-
-DEBUG = env.bool("DEBUG")
-ALLOWED_HOSTS = ['*']
+DEBUG = True
 
 DATABASES = {
     "default": {
