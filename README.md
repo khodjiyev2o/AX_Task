@@ -40,25 +40,27 @@ For example:
 ````
 SECRET_KEY='django-insecure-$i^+*htoqjh4@g%vtw&k2u1ow7jq-84-6fg)u2pt3(l&h1su^9'
 ````
-5. Build  the docker image
+5. Run the project locally in virtual environment
 
 ````
 
-$ docker build -t app .
+pip3 install -r requirements/dev.txt
 
 ````
-6. Run the docker container
+6. Run the project locally without docker
 
 ````
 
-$  docker run --restart=always --name mint -dp 80:8000 app 
+$  python3 manage.py runserver
 
 ````
 
     
-7. Open your browser and paste one of the urls :
+7. To run the tests of the project:
+````
 
-* http://127.0.0.1:80
-* http://localhost:80
-* http://0.0.0.0:80
+$  python3 manage.py test
+
+````
+
 
