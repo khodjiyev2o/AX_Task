@@ -1,7 +1,7 @@
 # AX Technology
 Back-End Task for AX technology.
 
-Visit the [Demo]() 
+Visit the [Demo](http://3.38.206.145/docs/) 
 
 ## Getting Started
 
