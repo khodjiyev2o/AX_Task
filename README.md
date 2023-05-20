@@ -1,4 +1,4 @@
-# MINT
+# AX Technology
 Back-End Task for AX technology.
 
 Visit the [Demo]() 
