@@ -2,6 +2,11 @@
 Back-End Task for AX technology.
 
 Visit the [Demo](http://3.38.206.145/docs/) 
+## Super user credentials for testing:
+````
+email: admin@gmail.com
+passwordl: admin
+````
 
 ## Getting Started
 

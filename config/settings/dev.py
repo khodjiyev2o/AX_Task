@@ -1,7 +1,7 @@
 from .base import *
 
 DEBUG = True
-
+ALLOWED_HOSTS = ['*']
 DATABASES = {
     "default": {
         "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
