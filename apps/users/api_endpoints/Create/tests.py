@@ -26,15 +26,28 @@ class TestCreateUser(APITestCase):
         data = {
             "email": 'myemail@gmail.com',
             "password": '1112312',
+            "password2": '1112312',
         }
         response = self.client.post(self.url, data=data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(response.json(), data)
+        self.assertEqual(response.json()['email'], data['email'])
+
+    def test_create_user_with_invalid_password(self):
+        data = {
+            "email": 'myemail@gmail.com',
+            "password": '1112312',
+            "password2": '111231',
+        }
+        response = self.client.post(self.url, data=data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.json()['success'], ['False'])
+        self.assertEqual(response.json()['message'], ['Password did not match, please try again'])
 
     def test_create_user_with_invalid_email(self):
         data = {
             "email": 'myemail@.co',
             "password": '1112312',
+            "password2": '1112312',
         }
         response = self.client.post(self.url, data=data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -44,6 +57,7 @@ class TestCreateUser(APITestCase):
         data = {
             "email": self.user.email,
             "password": '1112312',
+            "password2": '1112312',
         }
         response = self.client.post(self.url, data=data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

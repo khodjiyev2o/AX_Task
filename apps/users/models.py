@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import AbstractUser, PermissionsMixin
 from django.db import models
 from apps.common.models import BaseModel
 from .managers import UserManager
@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 
 
-class User(AbstractBaseUser, PermissionsMixin, BaseModel):
+class User(AbstractUser, BaseModel):
     first_name = models.CharField(_("First Name"), max_length=255, null=True, blank=True)
     last_name = models.CharField(_("Last Name"), max_length=255, null=True, blank=True)
     middle_name = models.CharField(_("Middle Name"), max_length=255, null=True, blank=True)
@@ -16,9 +16,6 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     email = models.EmailField(_("Email"), max_length=255, unique=True)
     photo = models.ImageField(_("Photo"), upload_to='users/%Y/%m', blank=True, null=True)
     date_of_birth = models.DateField(_("Data of Birth"), blank=True, null=True)
-    is_active = models.BooleanField(_("Is Active"), default=True)
-    is_staff = models.BooleanField(_("Is Staff"), default=False)
-    is_superuser = models.BooleanField(_("Is SuperUser"), default=False)
 
     objects = UserManager()
     USERNAME_FIELD = 'email'

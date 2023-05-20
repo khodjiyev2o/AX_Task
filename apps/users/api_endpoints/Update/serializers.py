@@ -8,4 +8,4 @@ User = get_user_model()
 class UpdateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", "first_name", "last_name", "username", "email", "date_of_birth", "photo")
+        fields = ("id", "first_name", "last_name", "username", "date_of_birth", "photo")
