@@ -67,7 +67,16 @@ $  python3 manage.py test
     looking at the sample sample.env and sample.db.env:
 ````
 
-$
+$ docker-compose -f docker-compose.yml up -d --build
+
+````
+9. To run the project in Dockerfile in production mode, create .env.prod  and .env.prod.db files 
+    looking at the sample sample.env and sample.db.env:
+````
+
+$ docker-compose -f docker-compose.prod.yml up -d --build
 
 ````
 
+10. Difference between production mode and development is that there is no 
+    nginx and gunicorn installed in development mode
