@@ -42,9 +42,66 @@ class TestUserList(APITestCase):
         self.assertEqual(response.data['results'][0]['email'], self.user.email)
         self.assertEqual(response.data['results'][0]['is_active'], self.user.is_active)
 
-    def test_get_users_list_valid_search(self):
+    def test_get_users_list_valid_search_email(self):
         headers = {"HTTP_AUTHORIZATION": f"Bearer {self.admin.tokens.get('access')}"}
         response = self.client.get(f'{self.url}?search={self.user.first_name}', **headers)
+        self.assertEqual(response.status_code, 200)
+        self.assertListEqual(list(response.data.keys()), ['count', 'next', 'previous', 'results'])
+        self.assertListEqual(list(response.data['results'][0].keys()), [
+            'id',
+            'first_name',
+            'last_name',
+            'phone',
+            'email',
+            'is_active'
+        ])
+        self.assertEqual(response.data['results'][0]['id'], self.user.id)
+        self.assertEqual(response.data['results'][0]['first_name'], self.user.first_name)
+        self.assertEqual(response.data['results'][0]['last_name'], self.user.last_name)
+        self.assertEqual(response.data['results'][0]['email'], self.user.email)
+        self.assertEqual(response.data['results'][0]['is_active'], self.user.is_active)
+
+    def test_get_users_list_valid_search_username(self):
+        headers = {"HTTP_AUTHORIZATION": f"Bearer {self.admin.tokens.get('access')}"}
+        response = self.client.get(f'{self.url}?search={self.user.username}', **headers)
+        self.assertEqual(response.status_code, 200)
+        self.assertListEqual(list(response.data.keys()), ['count', 'next', 'previous', 'results'])
+        self.assertListEqual(list(response.data['results'][0].keys()), [
+            'id',
+            'first_name',
+            'last_name',
+            'phone',
+            'email',
+            'is_active'
+        ])
+        self.assertEqual(response.data['results'][0]['id'], self.user.id)
+        self.assertEqual(response.data['results'][0]['first_name'], self.user.first_name)
+        self.assertEqual(response.data['results'][0]['last_name'], self.user.last_name)
+        self.assertEqual(response.data['results'][0]['email'], self.user.email)
+        self.assertEqual(response.data['results'][0]['is_active'], self.user.is_active)
+
+    def test_get_users_list_valid_filter_is_staff(self):
+        headers = {"HTTP_AUTHORIZATION": f"Bearer {self.admin.tokens.get('access')}"}
+        response = self.client.get(f'{self.url}?is_staff={self.user.is_staff}', **headers)
+        self.assertEqual(response.status_code, 200)
+        self.assertListEqual(list(response.data.keys()), ['count', 'next', 'previous', 'results'])
+        self.assertListEqual(list(response.data['results'][0].keys()), [
+            'id',
+            'first_name',
+            'last_name',
+            'phone',
+            'email',
+            'is_active'
+        ])
+        self.assertEqual(response.data['results'][0]['id'], self.user.id)
+        self.assertEqual(response.data['results'][0]['first_name'], self.user.first_name)
+        self.assertEqual(response.data['results'][0]['last_name'], self.user.last_name)
+        self.assertEqual(response.data['results'][0]['email'], self.user.email)
+        self.assertEqual(response.data['results'][0]['is_active'], self.user.is_active)
+
+    def test_get_users_list_valid_filter_is_active(self):
+        headers = {"HTTP_AUTHORIZATION": f"Bearer {self.admin.tokens.get('access')}"}
+        response = self.client.get(f'{self.url}?is_active={self.user.is_active}', **headers)
         self.assertEqual(response.status_code, 200)
         self.assertListEqual(list(response.data.keys()), ['count', 'next', 'previous', 'results'])
         self.assertListEqual(list(response.data['results'][0].keys()), [
@@ -64,6 +121,24 @@ class TestUserList(APITestCase):
     def test_get_users_list_invalid_search(self):
         headers = {"HTTP_AUTHORIZATION": f"Bearer {self.admin.tokens.get('access')}"}
         response = self.client.get(f'{self.url}?search=invalid_search@gmail.com', **headers)
+        self.assertEqual(response.status_code, 200)
+        self.assertListEqual(list(response.data.keys()), ['count', 'next', 'previous', 'results'])
+        self.assertEqual(response.data['next'], None)
+        self.assertEqual(response.data['previous'], None)
+        self.assertEqual(response.data['results'], [])
+
+    def test_get_users_list_invalid_filter_is_staff(self):
+        headers = {"HTTP_AUTHORIZATION": f"Bearer {self.admin.tokens.get('access')}"}
+        response = self.client.get(f'{self.url}?is_staff=True&is_superuser=False', **headers)
+        self.assertEqual(response.status_code, 200)
+        self.assertListEqual(list(response.data.keys()), ['count', 'next', 'previous', 'results'])
+        self.assertEqual(response.data['next'], None)
+        self.assertEqual(response.data['previous'], None)
+        self.assertEqual(response.data['results'], [])
+
+    def test_get_users_list_invalid_filter_is_active(self):
+        headers = {"HTTP_AUTHORIZATION": f"Bearer {self.admin.tokens.get('access')}"}
+        response = self.client.get(f'{self.url}?is_active=False', **headers)
         self.assertEqual(response.status_code, 200)
         self.assertListEqual(list(response.data.keys()), ['count', 'next', 'previous', 'results'])
         self.assertEqual(response.data['next'], None)

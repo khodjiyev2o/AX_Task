@@ -12,7 +12,8 @@ class UserListView(ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserListSerializer
     permission_classes = [IsAdminUser]
-    search_fields = ['first_name']
+    search_fields = ['first_name', 'email', 'username']
+    filterset_fields = ['is_staff', 'is_active', 'is_superuser']
 
 
 __all__ = ["UserListView"]

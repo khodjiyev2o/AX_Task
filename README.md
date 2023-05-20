@@ -1,5 +1,5 @@
 # MINT
-Back-End Service for MINT.
+Back-End Task for AX technology.
 
 Visit the [Demo]() 
 
